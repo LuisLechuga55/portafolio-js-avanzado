@@ -47,6 +47,7 @@ console.log('3 Terminando');
 // Promise: Algo que va a ocurrir pero no sabemos cuando va a ocurrir.
 // Estados de las promesas: Pendiente (pending), resuelto (resolve) y rechazado (reject)
 
+/*
 function asincronia() {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
@@ -63,10 +64,46 @@ asincronia().then(() => {
     console.log('3 Terminando');
     // Siguientes acciones despues de que responde la promesa con resolve()
 
-}).catch(error =>  console.log('error: ', error))
+}).catch(error => {
+
+console.log('error: ', error)
+})
 
 .finally(() => {
     // Se ejecuta siempre, tanto si la promesa fue resolve o reject
     console.log('4 FIN');
     console.log('en el finally');
 })
+*/
+
+//Async - await
+
+function generateReport() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log('2 en generacion del reporte');
+            resolve();
+        }, 4000)
+    });
+}
+
+function getPromotions() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log('3 obtiendo promociones');
+            resolve();
+        }, 4000)
+    });
+}
+
+async function run() {
+    console.log('1 Inicio');
+    await generateReport();
+    await getPromotions();
+    console.log('4 Terminando');
+}
+
+run();
+
+// SINCRONO: Una linea de codigo se ejecuta en orden y siempre despues de otra
+// ASINCRONO: No necesariamente 
