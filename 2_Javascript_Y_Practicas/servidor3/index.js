@@ -2,19 +2,35 @@ const http = require('http');
 const url = require('url');
 
 const server = http.createServer((req, res) => {
+
     const urlObject = url.parse(req.url);
     const path = urlObject.path;
-    const pathName = urlObject.pathname;
-    console.log(`path: ${path} - pathname: ${pathName}`);
+    console.log(`Este es mi path: ${path}`);
 
-    //Validacion de path sollcitado
-    // 1. OK
-    // 2. No tener Permisos
-    // 3. Not found
+    let status = 0;
+    let responseStr = '';
+    let mimeType = { 'Content-Type' : 'application/json' };
 
-    // res.writeHead(500, { 'Content-Type' : 'text/plain' } );
-    // res.write('Erro en mi servidor');
-    // res.end();
+    // Controller { Endpoint }
+    if (path === '/') {
+        responseStr = { message: 'Ok' }
+        status = 200;
+    } else if (path === '/permisos') {
+        responseStr = { message: 'Forbidden' }
+        status = 403;
+    } else if (path === '/loquesea.txt') {
+        responseStr = { message: 'Request timeout' }
+        status = 408;
+    } else {
+        responseStr = { message: 'Not found' }
+        status = 404;
+    }
+
+    const responseStringify = JSON.stringify(responseStr);
+
+    res.writeHead(status, mimeType);
+    res.write(responseStringify);
+    res.end();
 
 });
 
