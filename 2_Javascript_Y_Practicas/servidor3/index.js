@@ -1,6 +1,14 @@
 const http = require('http');
 const url = require('url');
 
+// PETICIONES
+// http://localhost:8080/
+// http://localhost:8080/permisos
+// http://localhost:8080/loquesea.tx
+// http://localhost:8080/solito
+
+
+// SERVIDOR
 const server = http.createServer((req, res) => {
 
     const urlObject = url.parse(req.url);
@@ -11,14 +19,14 @@ const server = http.createServer((req, res) => {
     let responseStr = '';
     let mimeType = { 'Content-Type' : 'application/json' };
 
-    // Controller { Endpoint }
-    if (path === '/') {
+    // Controller
+    if (path === '/') { // Primer Endpoint, recurso o servicio
         responseStr = { message: 'Ok' }
         status = 200;
-    } else if (path === '/permisos') {
+    } else if (path === '/permisos') { // Segundo Endpoint, recurso o servicio
         responseStr = { message: 'Forbidden' }
         status = 403;
-    } else if (path === '/loquesea.txt') {
+    } else if (path === '/loquesea.txt') { // Tercer Endpoint, recurso o servicio
         responseStr = { message: 'Request timeout' }
         status = 408;
     } else {
