@@ -2,13 +2,16 @@ const http = require('http');
 const url = require('url');
 const fs = require('fs');
 
-const mime = {
+const CONTENT_TYPE = 'Content-Type';
+
+const MIME = {
     html: 'text/html',
     css: 'text/cs',
     jpg: 'image/jpg',
     icon: 'image/x-icon',
     mp3: 'audio/mpeg3',
     mp4: 'audio/mp4',
+    json: 'application/json'
 };
 
 
@@ -28,17 +31,18 @@ const server = http.createServer((req, res) => {
             fs.readFile(fileSystemPath, (error, file) => {
                 
                 if (!error) {
+                    status = 200;
                     const aux = path.split('.')
                     const extension = aux[ aux.length-1 ];
                     const mimeFile = mime[ extension ]
                     // Ok y devuelve el archivo solicitado
-                    res.writeHead(status, { 'Content-Type' : mimeType } );
+                    res.writeHead(status, { CONTENT_TYPE : mimeType } );
                     res.write(file);
                     res.end();
 
                 } else {
                     status = 500;
-                    res.writeHead(500, { 'Content-Type' : 'application/json' } );
+                    res.writeHead(500, { CONTENT_TYPE : MIME.json } );
                     response = { message: 'Internal server error' };
                     res.write(response);
                     res.end();
@@ -47,7 +51,7 @@ const server = http.createServer((req, res) => {
 
         } else {
             status = 404;
-            res.writeHead(404, { 'Content-Type' : 'application/json' } );
+            res.writeHead(404, { CONTENT_TYPE : MIME.json } );
             response = { message: 'Npt found' };
             res.write(response);
             res.end();
