@@ -1,5 +1,5 @@
 const express = require('express');
-const dummyRoutes = require('./dummy/dummy.router.js');
+const dummyRoutes = require('./dummy/dummy.router');
 const trainerRoutes = require('./trainers/trainers.router');
 const pokemonRoutes = require('./pokemones/pokemones.router');
 
@@ -13,14 +13,3 @@ function routerApi(app) {
 }
 
 module.exports = routerApi;
-
-// http://localhost:3000/api/v1/trainers/ GET
-// http://localhost:3000/api/v1/trainers/:idTrainer/region/:idRegion GET
-// http://localhost:3000/api/v1/trainers/?page=10&size=1 GET
-// http://localhost:3000/api/v1/trainers/ POST
-
-// DELETE => URL
-// PATCH => URL
-// PUT => URL
-
-// create, read, update, delete => CRUD
