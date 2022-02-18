@@ -39,21 +39,24 @@ class PokemonesService {
 
 	}
 
-	async partialPokemon(id) {
+	async editPokemon(id, patchPokemon) {
 
-		const res = await axios.patch(`http://localhost:3000/pokemons/${id}`);
-		const data = res.data.headers;
+		const res = await axios.patch(`http://localhost:3000/pokemons/${id}`, patchPokemon);
+		const data = res.data;
+		return data;
 	}
 
-	async updatePokemon() {
+	async updatePokemon(id, pokemonUpdate) {
 
-		const res = await axios.put()
+		const res = await axios.put(`http://localhost:3000/pokemons/${id}`, pokemonUpdate);
+		const data = res.data;
+		return data;
 	}
 
 	async deletePokemon(id) {
 
 		const res = await axios.delete(`http://localhost:3000/pokemons/${id}`)
-		const data = res.id;
+		const data = res.data;
 		return data;
 	}
 }

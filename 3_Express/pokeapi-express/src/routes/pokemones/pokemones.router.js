@@ -18,35 +18,28 @@ pokemonRouter.get("/:id", async (req, res) => {
 
 pokemonRouter.post("/", async (req, res) => {
 	const body = req.body;
-	const createPokemon = await servicePokemonObject.postPokemon(body);
-	res.json({ message: 'created', data: createPokemon });
+	const pokemonCreate = await servicePokemonObject.postPokemon(body);
+	res.json({ message: 'created', data: pokemonCreate });
 });
 
 pokemonRouter.patch("/:id", async (req, res) => {
 	const body = req.body;
 	const id = req.params.id;
-	await servicePokemonObject.partialPokemon(id, body);
-	res.json({
-		message: "created",
-		data: body,
-	});
+	const pokemonPatch = await servicePokemonObject.editPokemon(id, body);
+	res.json({ message: "updated partial", data: body, pokemonPatch });
 });
 
 pokemonRouter.put("/:id", async (req, res) => {
 	const body = req.body;
 	const id = req.params.id;
-	await servicePokemonObject.updateComplete(id, body);
-	res.json({
-		message: "updated all",
-		id,
-		data: body,
-	});
+	const pokemonFix = await servicePokemonObject.updatePokemon(id, body);
+	res.json({ message: "updated all", id, data: body, pokemonFix});
 });
 
 pokemonRouter.delete("/:id", async (req, res) => {
 	const id = req.params.id;
-	const data = await servicePokemonObject.deletePokemon(id);
-	res.json( { message: "deleted",	id, data });
+	const pokemonDelete = await servicePokemonObject.deletePokemon(id);
+	res.json( { message: "deleted",	id, pokemonDelete });
 });
 
 module.exports = pokemonRouter;
