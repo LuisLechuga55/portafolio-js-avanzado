@@ -54,7 +54,7 @@ trainerRouter.patch("/:id", async (req, res) => {
 trainerRouter.put("/:id", async (req, res) => {
 	const body = req.body;
 	const id = req.params.id;
-	await serviceTrainerObject.updateComplete(id, body);
+	const newPokemon = await serviceTrainerObject.updateComplete(newPokemon);
 	res.json({
 		message: "updated all",
 		id,
